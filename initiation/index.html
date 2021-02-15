@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- import React & react dom-->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- import Babel-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+    <title>Initiation React</title>
+</head>
+<body>
+    <div id="root"></div>
+
+
+
+
+    
+    <script type="text/babel">
+    class App extends React.Component {
+       
+        users = ["Pierre","Paul","Jacques"]
+      
+        name = "Jeune Troubadour"
+        render(){ 
+            return <h1>Hello {this.name? this.name : "World"}!! <div>Il est actuellement : {new Date().toLocaleTimeString()} </div></h1>;
+        }
+    }
+
+    setInterval(()=> {
+        ReactDOM.render(<App />, document.getElementById("root"))
+    }, 1000);
+        
+    </script>
+</body>
+</html>
