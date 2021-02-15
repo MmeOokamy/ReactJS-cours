@@ -8,7 +8,7 @@ const Task = () => {
     title: "Première tâche",
   });
 
-  console.log(task)
+  const handleClick = () =>  console.log(task);
 
   return (
     <ListGroupItem variant={task.getVariant()}>
@@ -19,9 +19,13 @@ const Task = () => {
 
       <div>Echéance : {task.deadline.toLocaleDateString()}</div>
       <div>Temps restant : {task.getRemaining()} jours</div>
-
-      <Button onClick={() => console.log(task)}>Terminer</Button>
-      <Button onClick={() => console.log(task)}>Annuler</Button>
+{
+  task.completed ? 
+  <Button onClick={() => console.log(task)}>Terminer</Button>:
+  <Button onClick={handleClick}>Annuler</Button>
+}
+     
+      
     </ListGroupItem>
   );
 };
