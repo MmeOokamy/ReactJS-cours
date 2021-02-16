@@ -1,0 +1,8 @@
+/** 
+* ici on met du style pour toute l'application
+* plus adapter pour des info global => body - font
+**/
+
+body{
+    background-color: aquamarine;
+}

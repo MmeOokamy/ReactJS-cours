@@ -1,11 +1,11 @@
 import TaskModel, { priorities } from "models/Task";
-import React from "react";
-import { ListGroup } from 'react-bootstrap';
+import React, {useState} from "react";
+import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import Task from "./Task";
 
 
 const ToDoList = () => {
-  const list = [
+  const initList = [
     {
       id:1,
       title: "Finir le td",
@@ -26,15 +26,25 @@ const ToDoList = () => {
     },
 
   ];
+ 
+const [list, setList] = useState(initList);
 
-  const updateCompleted = (completed, task) => {
-    console.log(completed, task);
+  const updateCompleted = (completed, task = null) => {
+   setList((list) =>
+    list.map((i) =>
+       !task || task.id === i.id ? {...i, completed: completed } : i)
+   );
   };
 
-  return( <ListGroup> 
-    { list.map((tach) => (
-      <Task task={ new TaskModel(tach)} update ={updateCompleted} key={tach.id} />
+  return(
+    <ListGroup> 
+      { list.map((i) => (
+      <Task task={ new TaskModel(i)} update ={updateCompleted} key={i.id} />
       ))}
+      <ListGroupItem className="d-flex justify-content-center">
+        <Button onClick={()=>updateCompleted(false)} variant="dark" className="mr-5">Annuler tout</Button>
+        <Button onClick={()=>updateCompleted(true)} variant="dark" className="ml-5">Terminer tout</Button>
+      </ListGroupItem>
   </ListGroup>
   );
 };

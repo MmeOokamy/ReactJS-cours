@@ -2,6 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Badge, ListGroupItem, Button } from 'react-bootstrap';
 import TaskModel from "models/Task";
+import './Task.css';
+import css from './Task.module.css';
+
+
 
 const Task = ({task, update}) => {
   return (
@@ -12,8 +16,8 @@ const Task = ({task, update}) => {
       </Badge>
       <div className="row">
         <div className="col-10">
-          <p className="m-0">Echéance : {task.deadline.toLocaleDateString()}</p>
-          <p className="m-0"> Temps restant : {task.getRemaining()} jours</p>
+          <p className="m-0 choupakabra">Echéance : {task.deadline.toLocaleDateString()}</p>
+          <p className={ css.lafindumonde + "m-0"}> Temps restant : {task.getRemaining()} jours</p>
         </div>
         <div className="col-2 text-right">
           {task.completed ? (
