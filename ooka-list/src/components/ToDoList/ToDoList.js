@@ -1,6 +1,7 @@
 import Task from "../Task";
 import React, { useState } from "react";
 import css from "./ToDoList.module.css";
+import NewTaskForm from "components/NewTaskForm";
 
 
 // ici nous allons crée une liste dans un premier temps en dure 
@@ -77,6 +78,27 @@ const ToDoList = () => {
       setList(newList);
   }
 
+  /**
+   * Ajouter des taches dans la vue === en lien avec le NewTaskForm.js
+   * apres la liste et les btn on rajoute <NewTaskForm />
+   */
+
+   //function pour ajouter une tache
+   //cette fonction recupère les donnée du formulaire envoyer par handleSubmit => NewTaskForm.js:28
+   const addTask = (form) => {
+     //ici on setList en rajoutant a la list initial la nouvelle task du form 
+     setList([...list, {...form, id: getId()}]);
+   }
+
+    // Il faut trouver le dernier id dispo
+   const getId = () => {
+     return(
+       //on recupére la precedente tache et la tache courrent et on comparer les id
+       // si l'id de la precedentTask est suppérieur a la currentTask 
+       // la function me return l'id de la precedentTask sinon l'id la currentTask
+     list.reduce((precedentTask, currentTask) => (precedentTask.id > currentTask.id ? precedentTask : currentTask)).id + 1 
+     );
+   }
   
 
   /**
@@ -84,7 +106,9 @@ const ToDoList = () => {
    * */ 
   return (
      // symbole pour les div en React <> </> parce que c'est trop compliqué de taper div 
-     <div className={css.container}>  
+     <div className={css.container}>
+       <div>
+        
         <h1 className={css.title}> Ma Super Liste </h1>
         {/* faisont appele au composant de la liste -> Task quil faudra evidement importer 
         *   /!\ pour crée un attribut dans une balise il faut taper className
@@ -108,12 +132,18 @@ const ToDoList = () => {
                   
                 />
               ))
-          }
+          } 
+          </div>  
+        
         </div>
         <div className={css.btn}>
           {/** Il faut alors appeler la function completed avec des parametres */}
             <button onClick={() => updateCompleted(true)}>Tout terminer</button>
             <button onClick={() => updateCompleted(false)}>Tout Annuler</button>
+        </div>
+          <hr/>
+        <div className={css.form}>
+        <NewTaskForm add={addTask}/>
         </div>
         
     </div>

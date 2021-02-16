@@ -1,4 +1,4 @@
-# etape de creation avec le framework ReatJS
+# etape de creation Single page application avec le framework ReatJS
 
 => dans la console
 * npx create-react-app [nom-app]
@@ -71,6 +71,23 @@ pour le css. il faut penser a importer le fichier css dans le js. et l'utiliser 
      });
         setList(newList);
  }
+ 
+
+#### addTask
+on crée un objet newTask, on lui attribut les paramètres du form, on ajoute un id et un statut completed a false, puis on utilise setList pour modifier la liste pour donner => [...l'ancienne_liste, form]
+* const addTask = (form) => {
+    const newTask = {...form, id: getId(), completed: false};
+    setList([...list, newTask]);
+};
+
+on recupére la precedente tache et la tache courrent et on comparer les id
+si l'id de la precedentTask est suppérieur a la currentTask
+la function me return l'id de la precedentTask sinon l'id la currentTask  + 1
+*  const getId = () => {   
+    const taskId = list.reduce((precedentTask, currentTask) => (precedentTask.id > currentTask.id ? precedentTask : currentId));
+    return(taskId.id + 1 );
+ }
+
 
 
 ### Task/Task.js
@@ -84,3 +101,12 @@ pour le css. il faut penser a importer le fichier css dans le js. et l'utiliser 
 filter => filtrer une liste
 reduce => reduire a un seul element
 map => pour boucler et appliquer une modif possible
+
+## Etape de Creation de formulaire pour rajouter une tache
+
+npm crcf NewTaskForm
+
+* rajouter après les btn de ToDoList.js 
+ <NewTaskForm />
+ /!\ attention pour eviter le rechargement de la page a l'envoye du formulaire il est necessaire d'utiliser un preventDefault  => const handleSubmit
+
