@@ -1,5 +1,5 @@
 import Task from "../Task";
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import css from "./ToDoList.module.css";
 import NewTaskForm from "components/NewTaskForm";
 
@@ -40,6 +40,9 @@ const ToDoList = () => {
  // rajoute un State dans l'inspection d'element du navigateur
  // cela permetra d'ajouter ou de supprimer des taches
   const [list, setList] = useState(initialList);
+
+  // on initialise un compter qui vaut 0
+  const [count, setCount] = useState(0);
 
   //function pour supprimer une tache dans le dom
   // on doit lui donner un parametre/props l'id de la task a delete
@@ -92,6 +95,7 @@ const ToDoList = () => {
 
     // Il faut trouver le dernier id dispo
    const getId = () => {
+     
      return(
        //on recupére la precedente tache et la tache courrent et on comparer les id
        // si l'id de la precedentTask est suppérieur a la currentTask 
@@ -99,7 +103,14 @@ const ToDoList = () => {
      list.reduce((precedentTask, currentTask) => (precedentTask.id > currentTask.id ? precedentTask : currentTask)).id + 1 
      );
    }
-  
+  /**
+   * useEffect avec le counter
+   * /!\ attention a ne pas mettre de donnée pour modifier l'effect sinon boucle infini
+   */
+   useEffect(() => {
+     console.log(count);
+   }, [count]);
+
 
   /**
    * La function return est ce qui correspont a ce que l'on voit - a la view 
@@ -107,6 +118,10 @@ const ToDoList = () => {
   return (
      // symbole pour les div en React <> </> parce que c'est trop compliqué de taper div 
      <div className={css.container}>
+      <div>
+          <button onClick={() => setCount(oldCount=>oldCount+1)}> + 1</button>
+          <input value={count} />
+      </div>
        <div>
         
         <h1 className={css.title}> Ma Super Liste </h1>
