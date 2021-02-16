@@ -48,45 +48,74 @@ const ToDoList = () => {
     // =>list.filter((t) => t.id !== id)
     // je vais alors créer une liste avec ses taches là.
       const newList = list.filter((t) => t.id !== id);
-      //il faut alors modifier le state avec setList, on va alors écraser la list initial avec la new list
+      //il faut alors modifier le state avec setList, on va alors écraser la list initial avec la newList
       setList(newList);
       //jusqu'a actualisation (F5) de la page
       //on va mettre un petit button pour faire fonctionner ça
       // d'habord il faut passer removeTask en props => dans <Tast />
   }
 
-  // La function return est ce qui correspont a ce que l'on voit - a la view
+  // Function pour modifier le statut de toute les taches
+  const updateCompleted = (bool) => {
+    //on doit definir qu'elle objet la function doit retourner
+    //ma destructuring tache(t) a laquel je modifi la propriété completed
+   const newList = list.map((t) => ({...t, completed : bool}));
+    setList(newList);
+  }
+
+  //function updateCompleted en prenant en compte l'id
+  // j'ai besoin de l'id pour la trouver et modifier son statut puis de reformer une list 
+  // avec la modif => rajouter en props =>update
+  // on rajoute la props bool qui sera envoyer par le button directement afin de switch le statut
+  const updateState = (bool, id) => {
+    //on doit definir qu'elle tache/ objet la function doit retourner
+    //ma destructuring tache(t) a laquel je modifi la propriété completed
+   const newList = list.map((t) => {
+      if(id === t.id) return {...t, completed : bool};
+      else return t;
+  });
+      setList(newList);
+  }
+
+  
+
+  /**
+   * La function return est ce qui correspont a ce que l'on voit - a la view 
+   * */ 
   return (
      // symbole pour les div en React <> </> parce que c'est trop compliqué de taper div 
      <div className={css.container}>  
-      <h1 className={css.title}> Ma Super Liste </h1>
-      {/* faisont appele au composant de la liste -> Task quil faudra evidement importer 
-      *   /!\ pour crée un attribut dans une balise il faut taper className
-      */}
-      <div > 
-        {
-          /* Pour faire une boucle sur la list on va utiliser .map dans les accolades vu que c'est du js
-          le premier mot correspont au tableau / objet cible et le .map permet de recupéré la carte de l'objet -
-          dans le map on attend une fonction (parametre)=>{ function} on va prendre t pour tache de la liste - a l'interieur que je retourne le composant task autant de fois qu'il est pesent dans la liste  */
-            list.map((t) => (
-              /** il faudra alors utiliser les props - propriétés / arguments
-               * On va alors crée des "props" que l'on nomera comme on le souhaite et qui sera dans le cas
-               * present = a la tache (t) il faut alors passer a Task/Task.js 
-               * ne pas oublier de definir une key / clé unique / un index ou id
-               */
-              <Task 
-                task={t} 
-                remove={removeTask}
-                key={t.id}
-                
-              />
-            ))
-        }
-      </div>
-      
-
-
-
+        <h1 className={css.title}> Ma Super Liste </h1>
+        {/* faisont appele au composant de la liste -> Task quil faudra evidement importer 
+        *   /!\ pour crée un attribut dans une balise il faut taper className
+        */}
+        <div > 
+          {
+            /* Pour faire une boucle sur la list on va utiliser .map dans les accolades vu que c'est du js
+            le premier mot correspont au tableau / objet cible et le .map permet de recupéré la carte de l'objet -
+            dans le map on attend une fonction (parametre)=>{ function} on va prendre t pour tache de la liste - a l'interieur que je retourne le composant task autant de fois qu'il est pesent dans la liste  */
+              list.map((t) => (
+                /** il faudra alors utiliser les props - propriétés / arguments
+                 * On va alors crée des "props" que l'on nomera comme on le souhaite et qui sera dans le cas
+                 * present = a la tache (t) il faut alors passer a Task/Task.js 
+                 * ne pas oublier de definir une key / clé unique / un index ou id
+                 */
+                <Task 
+                  task={t} 
+                  remove={removeTask}
+                  update={updateState}
+                  key={t.id}
+                  
+                />
+              ))
+          }
+        </div>
+        <div className={css.btn}>
+          {/** Il faut alors appeler la function completed avec des parametres */}
+            <button onClick={() => updateCompleted(true)}>Tout terminer</button>
+            <button onClick={() => updateCompleted(false)}>Tout Annuler</button>
+        </div>
+        
     </div>
   )
 };

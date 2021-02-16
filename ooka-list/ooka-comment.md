@@ -57,9 +57,30 @@ pour le css. il faut penser a importer le fichier css dans le js. et l'utiliser 
  * <button onClick={removeTask}>Supprimer la tache</button>
  => au click sur le bouton on va utiliser la fonction removeTask qui supprime une tache de la liste
 
+
+ #### Rendre un parametre optionnel
+=> on lui donne une valeur init a null (id = null)
+ * par rapport a la function updateCompleted et updateState il est possible de faire une seule function
+
+ * const updateCompletedState = (bool, id=null) =>{
+     const newList = list.map((t) => {
+         if(id === t.id || id === null) return {
+             ...t, completed : bool
+         };
+         else return t;
+     });
+        setList(newList);
+ }
+
+
 ### Task/Task.js
   On crée une function pour changer la couleur de la tache
 
 => un peu de css avec les className tout ça
 
+# Le console.log() est ton ami!
 
+
+filter => filtrer une liste
+reduce => reduire a un seul element
+map => pour boucler et appliquer une modif possible

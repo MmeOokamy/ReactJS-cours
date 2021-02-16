@@ -2,8 +2,8 @@ import React from "react";
 import css from "./Task.module.css";
 
 // Task reçois alors la props task du fichier ToDoList.js
-// on peut utiliser "props" pour tout selectionner ou cibler les elements avec {task, remove, update}
-const Task = ({task, remove}) => {
+// on peut utiliser "props" pour tout selectionner ou destructuring les elements avec {task, remove, update}
+const Task = ({task, remove, update}) => {
      /**
        * /!\ ici la couleur de l'item change en fonction du statut completed de la tache et
        *  du niveau d'importance si la tache n'est pas completed
@@ -25,7 +25,7 @@ const Task = ({task, remove}) => {
   <div className={ ` ${css.item} ${getStatut() } ` }> 
     <h2 className={css.title} >{task.title}</h2>
     <p className={css.content}> Priorité : {task.priority}</p>
-    {/* /!\ le statut est un bool, il n'affiche rien il faut alors faire un ternaire */}
+      {/* /!\ le statut est un bool, il n'affiche rien il faut alors faire un ternaire */}
     <p className={css.content}> Statut :  { 
             /* si la tache est complete*/
             task.completed ? 
@@ -35,13 +35,18 @@ const Task = ({task, remove}) => {
             /* sinon */ 
             "En cours"  
             /** {task.completed ? "Terminée" : "En cours"} */
-    }
+      }
     </p>
 
-    {/** Bouton pour supprimer la tache
-     * on va declancher une function qui va lancer remove et lui donner l'id
+    {/** Bouton pour supprimer - modifier la tache on va declancher une function qui va lancer remove et lui donner l'id
+     * on a alors la possibilité de passer des parametres dans la function tel que true ou false
      */}
-    <button onClick={() => {remove(task.id)}}>Supprimer</button>
+    <div className={css.btn}>
+        <button onClick={() => {update(true, task.id)}}>Terminer</button>
+        <button onClick={() => {update(false, task.id)}}>Annuler</button>
+        <button onClick={() => {remove(task.id)}}>Supprimer</button>
+    </div>
+    
   </div>
   
   )
