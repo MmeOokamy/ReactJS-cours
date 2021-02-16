@@ -1,0 +1,26 @@
+.item {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 2px;
+  }
+  .content,
+  .title {
+    margin: 0;
+  }
+  
+  .completed {
+    background-color: #eee;
+    color: #333;
+  }
+  .high{
+    background-color: rgb(255,200,200);
+    color: rgb(150,50,50)
+  }
+  .medium{
+    background-color: rgb(255,225,200);
+    color: rgb(150,100,50)
+  }
+  .low{
+    background-color: rgb(200,255,200);
+    color: rgb(50,150,50)
+  }

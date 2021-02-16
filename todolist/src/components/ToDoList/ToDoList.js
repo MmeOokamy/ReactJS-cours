@@ -2,6 +2,7 @@ import TaskModel, { priorities } from "models/Task";
 import React, {useState} from "react";
 import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import Task from "./Task";
+import NewTask from "./NewTaskForm";
 
 
 const ToDoList = () => {
@@ -36,7 +37,13 @@ const [list, setList] = useState(initList);
    );
   };
 
-  return(
+  const addTask = (form) => {
+   const NewTask = {...form, id:999, completed: false};
+   setList([...list, NewTask]);
+  };
+
+  return (
+    <div>
     <ListGroup> 
       { list.map((i) => (
       <Task task={ new TaskModel(i)} update ={updateCompleted} key={i.id} />
@@ -44,8 +51,12 @@ const [list, setList] = useState(initList);
       <ListGroupItem className="d-flex justify-content-center">
         <Button onClick={()=>updateCompleted(false)} variant="dark" className="mr-5">Annuler tout</Button>
         <Button onClick={()=>updateCompleted(true)} variant="dark" className="ml-5">Terminer tout</Button>
+       
       </ListGroupItem>
+     <NewTask add={addTask} />
   </ListGroup>
+  
+  </div>
   );
 };
 
