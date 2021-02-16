@@ -1,4 +1,4 @@
-# etable de creation avec le framework ReatJS
+# etape de creation avec le framework ReatJS
 
 => dans la console
 * npx create-react-app [nom-app]
