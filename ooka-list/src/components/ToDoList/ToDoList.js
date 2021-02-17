@@ -10,7 +10,7 @@ const ToDoList = () => {
   const initialList = [
     {
       id: 1,
-      title: "Ecrir du JS",
+      title: "Ecrire du JS",
       completed: false,
       priority: "Basse",
     },
@@ -94,15 +94,22 @@ const ToDoList = () => {
    }
 
     // Il faut trouver le dernier id dispo
+    // probleme avec une liste vide if?
    const getId = () => {
-     
-     return(
+     if(list.length !== 0){
+       return(
        //on recupére la precedente tache et la tache courrent et on comparer les id
        // si l'id de la precedentTask est suppérieur a la currentTask 
        // la function me return l'id de la precedentTask sinon l'id la currentTask
      list.reduce((precedentTask, currentTask) => (precedentTask.id > currentTask.id ? precedentTask : currentTask)).id + 1 
      );
-   }
+     } else {
+       //si la liste est vide alors on retourn 1 pour init le premier ID
+       console.log("vide");
+       return 1;
+     }
+     
+   };
   /**
    * useEffect avec le counter
    * /!\ attention a ne pas mettre de donnée pour modifier l'effect sinon boucle infini

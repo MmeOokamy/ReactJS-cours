@@ -16,6 +16,7 @@ split le terminal pour lancer le server 3000 et avoir une console a dispo
 
 #### CRCF => Create-react-component-forder  // creation auto du dossier componente pour feignasse
 * npm install --save-dev create-react-component-folder
+
 => rajouter dans le fichier package.json
 * "crcf": [ //permet de definir les fonction auto de creation
     "cssmodules", // crée un fichier au format module.css
@@ -87,6 +88,15 @@ la function me return l'id de la precedentTask sinon l'id la currentTask  + 1
     const taskId = list.reduce((precedentTask, currentTask) => (precedentTask.id > currentTask.id ? precedentTask : currentId));
     return(taskId.id + 1 );
  }
+
+D'ailleurs il y a une erreur quand on souhaite rajouter une tache dans une liste vide. comme il n'y a pas d'id de référence.
+un ternair?
+* if(list.length !== 0){
+       return console.log("coucou");
+     } else {
+       console.log("vide")
+     }
+
 
 
 
