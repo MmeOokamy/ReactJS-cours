@@ -111,7 +111,7 @@ const ToDoList = () => {
    };
 
    /** appele a une API */
-
+//useEffect permet de faire appele a un objet/ element seulement quon on l'appel
    useEffect(() => {
      async function fetchData() {
      try {
