@@ -5,6 +5,7 @@ const Count = () => {
 
  // on initialise un compter qui vaut 0
  const [count, setCount] = useState(0);
+ const increment = () => setCount(count + 1);
  
   /**
    * useEffect avec le counter
@@ -17,7 +18,7 @@ const Count = () => {
 
   return (
     <div>
-      <button onClick={() => setCount(oldCount=>oldCount+1)}> + 1</button>
+      <button onClick={increment}> + 1</button>
       <p>{count}</p>
     </div>
     )

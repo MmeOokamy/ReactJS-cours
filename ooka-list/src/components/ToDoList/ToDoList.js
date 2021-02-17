@@ -5,8 +5,9 @@ import NewTaskForm from "components/NewTaskForm";
 import Count from "components/Count";
 import Login from "components/Login";
 import Logout from "components/Logout";
-import User from "../../context/User";
-import {objToArr} from "../../utils";
+import List from "context/List";
+import User from "context/User";
+
 
 
 // ici nous allons crée une liste dans un premier temps en dure 
@@ -46,7 +47,11 @@ const ToDoList = () => {
  // cela permetra d'ajouter ou de supprimer des taches
   //const [list, setList] = useState(initialList);
   //quand on utilise une api on crée un tableau vide
-  const [list, setList] = useState([]);
+  //const [list, setList] = useState([]);
+
+
+  //on change a useContext car on a crée la logique de list dans  /context/List.js
+  const {list, setList} = useContext(List);
 
  
 
@@ -116,30 +121,7 @@ const ToDoList = () => {
      }
    };
 
-   //recup le context user pour tier par id comme un findById
-   const {user} = useContext(User);
-   
-
-   /** appele a une API */
-//useEffect permet de faire appele a un objet/ element seulement quon on l'appel
-const fetchData = async () => {
-  try {
-      const res = await fetch(`https://react-todolist-73842-default-rtdb.firebaseio.com/task.json?orderBy="userId"&equalTo=${user.id}`);
-      if(!res.ok) throw Error(res.statusText);
-      else{
-          const data = await res.json();
-          console.log(data);
-          setList([...objToArr(data)]);
-        }
-  } catch (e) {
-      console.log(e);
-  }
-};   
-
-useEffect(() => {
-         fetchData();
-      }, []
-   );
+ 
 
  
 
