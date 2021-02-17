@@ -51,9 +51,10 @@ deplacer App.css - App.js - App.test.js - index.js -App.module.scss
 
 ### ToDoList/ToDoList.js
 
-/!\ quand je veux taper du javascript il faut penser a ouvrir les accolades !!!! ce n'est pas du jsx
+* /!\ quand je veux taper du javascript il faut penser a ouvrir les accolades !!!! ce n'est pas du jsx
 
-pour le css. il faut penser a importer le fichier css dans le js. et l'utiliser entre des accolades de JavaScript
+* pour le css. il faut penser a importer le fichier css dans le js. et l'utiliser entre des accolades de JavaScript
+
 #### onClick = onclick
  * <button onClick={removeTask}>Supprimer la tache</button>
  => au click sur le bouton on va utiliser la fonction removeTask qui supprime une tache de la liste
