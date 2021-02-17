@@ -18,7 +18,7 @@ const Count = () => {
   return (
     <div>
       <button onClick={() => setCount(oldCount=>oldCount+1)}> + 1</button>
-      <input value={count} />
+      <p>{count}</p>
     </div>
     )
 };

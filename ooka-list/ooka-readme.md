@@ -143,3 +143,58 @@ Il est important de noter qu'il faut le coupler avec un useEffect afin de limit�
      }
    };
 
+//avec useEffect
+
+* useEffect(() => {
+     async function fetchData() {
+     try {
+       //on fait un appele a l'API
+        const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+        //si la reponse n'est pas ok elle nous renvoi son statu
+        if(!res.ok) throw Error(res.statusText);
+        else{
+          //si la reponse est ok on la parse en json object
+          const data = await res.json();
+          console.log(data);
+          //on integre alors le json dans la list
+          setList([ ...data]);
+        }
+     } catch (e) {
+        console.log(e);
+     }
+   };
+      fetchData();
+   }, []
+   );
+
+
+#### pour ajouter les données dans firebase /!\ la list est comment ==>   const [list, setList] = useState(initialList);
+ * useEffect(() => {
+
+    const options = {
+      method: 'PUT',
+      mode: 'cors',
+      body: JSON.stringify(list),
+      headers: {"Content-Type": "application/json"},
+    };
+
+     async function fetchData() {
+        try {
+            const res = await fetch("https://react-todolist-73842-default-rtdb.firebaseio.com/task.json", options);
+            if(!res.ok) throw Error(res.statusText);
+            else{
+                const data = await res.json();
+                console.log(data);
+                setList(data);
+              }
+        } catch (e) {
+            console.log(e);
+        }
+      };
+          fetchData();
+      }, [list]
+   );
+
+## Le context
+
+permet de faire transiter les données dans les differentes couches de l'application.

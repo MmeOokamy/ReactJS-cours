@@ -2,6 +2,7 @@
     border: 1px solid #ccc;
     padding: 5px;
     margin: 2px;
+    text-align: left;
   }
   .content,
   .title {

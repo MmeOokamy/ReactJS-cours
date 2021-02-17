@@ -1,14 +1,18 @@
 import Task from "../Task";
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useContext} from "react";
 import css from "./ToDoList.module.css";
 import NewTaskForm from "components/NewTaskForm";
 import Count from "components/Count";
+import Login from "components/Login";
+import Logout from "components/Logout";
+import User from "../../context/User";
+import {objToArr} from "../../utils";
 
 
 // ici nous allons crée une liste dans un premier temps en dure 
 const ToDoList = () => {
   // Il faut un tableau avec une structure 
-  const initialList = [
+ /**  const initialList = [
     {
       id: 1,
       title: "Ecrire du JS",
@@ -33,14 +37,16 @@ const ToDoList = () => {
       completed: true,
       priority: "Haute",
     },
-  ];
+  ]; */
 
  // useState Retourne une valeur d'état, et une fonction pour la mettre à jour.
  //useState() prend un premier parametre qui sera la source initial => initialList
  // setList sert alors de fonction pour mettre a jour la source initial
  // rajoute un State dans l'inspection d'element du navigateur
  // cela permetra d'ajouter ou de supprimer des taches
-  const [list, setList] = useState(initialList);
+  //const [list, setList] = useState(initialList);
+  //quand on utilise une api on crée un tableau vide
+  const [list, setList] = useState([]);
 
  
 
@@ -110,28 +116,29 @@ const ToDoList = () => {
      }
    };
 
+   //recup le context user pour tier par id comme un findById
+   const {user} = useContext(User);
+   
+
    /** appele a une API */
 //useEffect permet de faire appele a un objet/ element seulement quon on l'appel
-   useEffect(() => {
-     async function fetchData() {
-     try {
-       //on fait un appele a l'API
-        const res = await fetch("https://jsonplaceholder.typicode.com/todos");
-        //si la reponse n'est pas ok elle nous renvoi son statu
-        if(!res.ok) throw Error(res.statusText);
-        else{
-          //si la reponse est ok on la parse en json object
+const fetchData = async () => {
+  try {
+      const res = await fetch(`https://react-todolist-73842-default-rtdb.firebaseio.com/task.json?orderBy="userId"&equalTo=${user.id}`);
+      if(!res.ok) throw Error(res.statusText);
+      else{
           const data = await res.json();
           console.log(data);
-          //on integre alors le json dans la list
-          setList([ ...data]);
+          setList([...objToArr(data)]);
         }
-     } catch (e) {
-        console.log(e);
-     }
-   };
-      fetchData();
-   }, []
+  } catch (e) {
+      console.log(e);
+  }
+};   
+
+useEffect(() => {
+         fetchData();
+      }, []
    );
 
  
@@ -144,8 +151,9 @@ const ToDoList = () => {
      <div className={css.container}>
       {/** en utilisant cette syntaxeaffiche le compteur du components/Count,*/}
           <Count />
+          
       <div>
-        
+        <Logout />
       </div>
        <div>
         
