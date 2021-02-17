@@ -1,5 +1,5 @@
 import Task from "../Task";
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import css from "./ToDoList.module.css";
 import NewTaskForm from "components/NewTaskForm";
 import Count from "components/Count";
@@ -108,9 +108,33 @@ const ToDoList = () => {
        console.log("vide");
        return 1;
      }
-     
    };
-  
+
+   /** appele a une API */
+
+   useEffect(() => {
+     async function fetchData() {
+     try {
+       //on fait un appele a l'API
+        const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+        //si la reponse n'est pas ok elle nous renvoi son statu
+        if(!res.ok) throw Error(res.statusText);
+        else{
+          //si la reponse est ok on la parse en json object
+          const data = await res.json();
+          console.log(data);
+          //on integre alors le json dans la list
+          setList([ ...data]);
+        }
+     } catch (e) {
+        console.log(e);
+     }
+   };
+      fetchData();
+   }, []
+   );
+
+ 
 
   /**
    * La function return est ce qui correspont a ce que l'on voit - a la view 
@@ -120,7 +144,9 @@ const ToDoList = () => {
      <div className={css.container}>
       {/** en utilisant cette syntaxeaffiche le compteur du components/Count,*/}
           <Count />
-      
+      <div>
+        
+      </div>
        <div>
         
         <h1 className={css.title}> Ma Super Liste </h1>

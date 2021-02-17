@@ -121,3 +121,25 @@ npm crcf NewTaskForm
  <NewTaskForm />
  /!\ attention pour eviter le rechargement de la page a l'envoye du formulaire il est necessaire d'utiliser un preventDefault  => const handleSubmit
 
+### Api - fetchData
+
+Il est important de noter qu'il faut le coupler avec un useEffect afin de limité lappel a l'api . telle une instanciation
+ * /** appele a une API */
+   const fetchData = async () => {
+     try {
+       //on fait un appele a l'API
+        const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+        //si la reponse n'est pas ok elle nous renvoi son statu
+        if(!res.ok) throw Error(res.statusText);
+        else{
+          //si la reponse est ok on la parse en json object
+          const data = await res.json();
+          console.log(data);
+          //on integre alors le json dans la list
+          setList([...list, ...data]);
+        }
+     } catch (e) {
+        console.log(e);
+     }
+   };
+
