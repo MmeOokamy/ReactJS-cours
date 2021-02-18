@@ -25,7 +25,7 @@ const Task = ({task, remove, update}) => {
     /**on utilisera la function getStatut dans le className on applique la class .item et getStatut qui defini la couleur en fonction de la const getStatut() important => $ <= */
   <div className={ ` ${css.item} ${getStatut() } ` }> 
     <h2 className={css.title} >{task.title}</h2>
-    <h3>{task.userId}</h3>
+    <h3>{task.userId? "oui" : "non"}</h3>
     <p className={css.content}> Priorité : {task.priority}</p>
       {/* /!\ le statut est un bool, il n'affiche rien il faut alors faire un ternaire */}
     <p className={css.content}> Statut :  { 

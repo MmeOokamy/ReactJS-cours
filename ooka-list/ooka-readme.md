@@ -97,6 +97,14 @@ un ternair?
      } else {
        console.log("vide")
      }
+const getId= () => {
+  if(list.length !== 0){
+  const taskId = list.reduce((precedentTask, currentTask) => (precedentTask.id > currentTask.id ? precedentTask : currentId));
+      return(taskId.id + 1 );
+  } else {
+      return 1
+  };
+};
 
 
 

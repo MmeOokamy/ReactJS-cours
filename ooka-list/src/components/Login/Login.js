@@ -1,5 +1,5 @@
-import React, {useState, useContext } from "react";
-//import User from "../../context/User";
+import React, {useState, useContext, useEffect } from "react";
+import User from "../../context/User";
 import css from "./Login.module.css";
 import Firebase from "../../context/Firebase";
 
@@ -9,6 +9,8 @@ const Login = () => {
 
   const firebase = useContext(Firebase);
 
+
+
   const initLog = {
     userEmail: "",
     passwordOne: "",
@@ -16,6 +18,7 @@ const Login = () => {
   }
 
   const [formLogin, setForm] = useState(initLog);
+  const { user, setUser } = useContext(User);
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
@@ -24,7 +27,11 @@ const Login = () => {
       .login(formLogin.userEmail, formLogin.passwordOne)
       .then((res) => {
         setForm(initLog);
-        console.log(res);
+        setUser(res.user);
+        console.log(res.user.uid) ;
+        //on ajoute la clé "user" a la valeur uid de la reponse obtenue voir context/User.js
+        localStorage.setItem("user", JSON.stringify(res.user.uid));
+        
       })
       .catch((error) => {
         setForm({
@@ -32,8 +39,18 @@ const Login = () => {
           error: error
         });
       });
-
   };
+
+  useEffect(() => { 
+  
+    //si l'user existe 
+    
+
+    //localStorage.setItem("user", JSON.stringify(user));
+    //sinon localStorage.removeItem("user")
+  }, [formLogin])
+
+
 
   const handleChange = (e) => {
     const value = e.target.value;

@@ -4,7 +4,7 @@ import css from "./ToDoList.module.css";
 import NewTaskForm from "components/NewTaskForm";
 import Count from "components/Count";
 //import Login from "components/Login";
-import Logout from "components/Logout";
+import Loggout from "components/Logout";
 import List from "context/List";
 //import User from "context/User";
 
@@ -115,7 +115,7 @@ const ToDoList = () => {
      list.reduce((precedentTask, currentTask) => (precedentTask.id > currentTask.id ? precedentTask : currentTask)).id + 1 
      );
      } else {
-       //si la liste est vide alors on retourn 1 pour init le premier ID
+       //si la liste est vide alors on retourne 1 pour init le premier ID
        console.log("vide");
        return 1;
      }
@@ -135,7 +135,7 @@ const ToDoList = () => {
           <Count />
           
       <div>
-        <Logout />
+        <Loggout />
       </div>
        <div>
         

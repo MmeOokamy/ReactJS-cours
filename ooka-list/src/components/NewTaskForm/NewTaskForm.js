@@ -1,9 +1,10 @@
-import React, {useState} from "react";
-import css from './NewTaskForm.module.css'
+import React, {useState, useContext} from "react";
+import css from './NewTaskForm.module.css';
+import Firebase from "../../context/Firebase";
 
 
 const NewTaskForm = ({add}) => {
-
+  const firebase = useContext(Firebase);
   //on initialise une structure pour le formulaire
   const initialForm = {
     title : "",
@@ -29,7 +30,26 @@ const NewTaskForm = ({add}) => {
     // bloque le rechargement de la page
     e.preventDefault(); 
     // appel addTask en lui passant les entrée du formulaire avec form => ToDoList.js:88
-    add(form); 
+    add(form);
+
+    //firebase
+    /* firebase
+    .database().ref().set({
+      userId: 3,
+      priority: form.priority,
+      title: form.title,
+      id: firebase.auth
+    })
+    .then((res) => {
+      setForm(initialForm);
+    })
+    .catch((error) => {
+      setForm({
+        ...form,
+        error: error
+      });
+    }); */
+
     //reinitialise le formulaire un fois celui-ci dans la liste
     setForm(initialForm);
   };

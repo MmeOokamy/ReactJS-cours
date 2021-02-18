@@ -6,6 +6,7 @@ const defaultList = [];
 const List = createContext();
 
 export const ListProvider = ({ children }) => {
+  
   const [list, setList] = useState(defaultList);
 //recuper le user dans le context et faire un useEffect pour fetch la list avec userId
   //recup le context user pour tier par id comme un findById
@@ -18,24 +19,23 @@ export const ListProvider = ({ children }) => {
 
 useEffect(() => {
     async function fetchData() {
- try {
-     const res = await fetch(`https://react-todolist-73842-default-rtdb.firebaseio.com/task.json?orderBy="userId"&equalTo=${user.id}`);
-     if(!res.ok) throw Error(res.statusText);
-     else{
-         const data = await res.json();
-         console.log(data);
-         setList([...objToArr(data)]);
-       }
- } catch (e) {
-     console.log(e);
- }
-};
+        try {
+            const res = await fetch(`https://react-todolist-73842-default-rtdb.firebaseio.com/tasks.json?orderBy="userId"&equalTo="${user.uid}"`);
+            if(!res.ok) throw Error(res.statusText);
+            else{
+                const data = await res.json();
+                console.log(data);
+                setList([...objToArr(data)]);
+              }
+        } catch (e) {
+            console.log(e);
+        }
+    };
        if(user) fetchData();
-}, [user]
-  );
+}, [user]);
 
 
-  //mon contexte me renvoi un objet avec un user et un setUser
+  //mon contexte me renvoi un objet avec un list et un setList
   return <List.Provider value={{ list, setList }}>{children}</List.Provider>;
 };
 
