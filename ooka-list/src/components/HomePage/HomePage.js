@@ -3,13 +3,17 @@ import ToDoList from "../ToDoList";
 import Login from "../Login";
 import User from "../../context/User";
 
+import Register from "../Register";
+import css from "./HomePage.module.css";
+
 const HomePage = () => {
   //useContext(() =>)
 const {user} = useContext(User);
+
   return (
-    <> 
-    {user ? <ToDoList /> :  <Login />}
-    </>
+    <div className={css.container}>
+    {user ? <ToDoList /> : <><Login /><Register/></>}
+    </div>
   );
     
   

@@ -1,42 +1,70 @@
-import React, { useContext } from "react";
-import User from "../../context/User";
+import React, {useState, useContext } from "react";
+//import User from "../../context/User";
 import css from "./Login.module.css";
+import Firebase from "../../context/Firebase";
+
 
 
 const Login = () => {
 
-  /*const users = [
-    { 
-      userId: "1",
-      userName: "Ooka",
-    }, 
-    { 
-      userId: "2",
-      userName: "Yure",
-    },
-    { 
-      userId: "3",
-      userName: "Inca",
-    },
-    { 
-      userId: "4",
-      userName: "baylou",
-    },
-  ]; */
+  const firebase = useContext(Firebase);
 
-  //on recupére le context de user qui est null par default useContext(User)
-  const {setUser} = useContext(User);
-   // Récupérer le context User (null par défaut)
-  // Dans le JSX créer un bouton
-  // Au clic du bouton, modifier le context User avec la valeur suivante
-  // {id:1, name:"David"}
+  const initLog = {
+    userEmail: "",
+    passwordOne: "",
+    error:null,
+  }
 
-  const loggedUser = {id: 2, name: "Ooka"};
+  const [formLogin, setForm] = useState(initLog);
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+
+    firebase
+      .login(formLogin.userEmail, formLogin.passwordOne)
+      .then((res) => {
+        setForm(initLog);
+        console.log(res);
+      })
+      .catch((error) => {
+        setForm({
+          ...formLogin,
+          error: error
+        });
+      });
+
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+    setForm({...formLogin, [name] : value });
+  };
+
 
   return (
     <div className={css.container}>
     <h3>Login</h3>
-      <button onClick={()=> setUser(loggedUser)}>Loggin</button>
+
+      <form onSubmit={handleSubmit}>
+        
+      <div className={css.flex}>
+        
+        <div>
+          <label>Email : </label>
+          <input type="text" name="userEmail"  value={formLogin.userEmail} onChange={handleChange} />
+        </div>
+        
+        <div>
+          <label>Mdp 1 : </label>
+          <input type="password"  name="passwordOne"  value={formLogin.passwordOne} onChange={handleChange} />
+        </div>
+
+      
+      </div>
+        <button>Pwet</button>
+      </form>
+      <p>{formLogin.error ? formLogin.error.message : ""}</p>
       <hr />
     </div>
   );

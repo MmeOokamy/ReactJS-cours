@@ -1,12 +1,12 @@
 import Task from "../Task";
-import React, { useState, useEffect, useContext} from "react";
+import React, { useContext } from "react";
 import css from "./ToDoList.module.css";
 import NewTaskForm from "components/NewTaskForm";
 import Count from "components/Count";
-import Login from "components/Login";
+//import Login from "components/Login";
 import Logout from "components/Logout";
 import List from "context/List";
-import User from "context/User";
+//import User from "context/User";
 
 
 

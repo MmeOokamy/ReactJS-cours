@@ -1,10 +1,13 @@
 import React, {useContext} from "react";
-import User from "../../context/User";
+//import User from "../../context/User";
+import Firebase from "../../context/Firebase";
+
 
 const Logout = () => {
 
-  const  {setUser} = useContext(User);
-  return <button onClick={() => setUser(null)}>Logout</button>;
+  const firebase = useContext(Firebase);
+
+  return <button onClick={firebase.Logout()}>Logout</button>;
 
 };
 
