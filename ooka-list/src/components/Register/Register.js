@@ -1,10 +1,14 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import Firebase from "context/Firebase";
 import css from "./Register.module.css"
+import User from "context/User";
 
 const Register = () => {
 
+  const { setUser } = useContext(User);
   const firebase = useContext(Firebase);
+
+const [isInvalid, setIsInvalid] = useState(true);
 
   const initialRegister = {
     userName:"",
@@ -18,11 +22,14 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
-
+    //on utilise la methode register et firebase qui renvoie une promesse
     firebase
+    //dans cet fonction on envoie email et mdp
       .register(formRegistration.userEmail, formRegistration.passwordOne)
-      .then(() => {
+      //elle renvoi une promesse
+      .then((res) => {
         setForm(initialRegister);
+        setUser(res.user);
       })
       .catch((error) => {
         setForm({
@@ -30,8 +37,19 @@ const Register = () => {
           error: error
         });
       });
-
   };
+
+  useEffect(() => {
+       setIsInvalid(
+         !(
+           formRegistration.passwordOne === formRegistration.passwordTwo &&
+         formRegistration.passwordOne !== "" &&
+         formRegistration.userEmail !== "" && 
+         formRegistration.userName !== ""
+         )
+         
+       );
+      }, [formRegistration]);
 
   const handleChange = (e) => {
     //on recupere les info des values
@@ -50,26 +68,26 @@ const Register = () => {
       <div className={css.flex}>
         <div>
           <label>Nom : </label>
-          <input type="text"  name="userName"  value={formRegistration.userName} onChange={handleChange} />
+          <input type="text"  name="userName"  value={formRegistration.userName} onChange={handleChange} placeholder="Pseudo"/>
         </div>
         
         <div>
           <label>Email : </label>
-          <input type="text" name="userEmail"  value={formRegistration.userEmail} onChange={handleChange} />
+          <input type="email" name="userEmail"  value={formRegistration.userEmail} onChange={handleChange} placeholder="Email"/>
         </div>
         
         <div>
           <label>Mdp 1 : </label>
-          <input type="password"  name="passwordOne"  value={formRegistration.passwordOne} onChange={handleChange} />
+          <input type="password"  name="passwordOne"  value={formRegistration.passwordOne} onChange={handleChange} placeholder="Mot de Passe"/>
         </div>
       
         <div>
           <label>Mdp 2 : </label>
-          <input type="password"  name="passwordTwo"  value={formRegistration.passwordtwo} onChange={handleChange} />
+          <input type="password"  name="passwordTwo"  value={formRegistration.passwordtwo} onChange={handleChange} placeholder="Confirmer le MdP"/>
         </div>
       
       </div>
-        <button>Pwet</button>
+        <button type="submit" disabled={isInvalid} >Inscription</button>
     </form>
 
     <p>{formRegistration.error ? formRegistration.error.message : ""}</p>

@@ -19,12 +19,12 @@ const firebaseConfig = {
         const auth = app.auth();
        
         const register = (email, password) => auth.createUserWithEmailAndPassword(email, password);
-        
         const login = (email, password) => auth.signInWithEmailAndPassword(email, password);
         const logout = () => auth.signOut();
         const database = () => app.database();
         
         return {
+            auth,
             register,
             login,
             logout,

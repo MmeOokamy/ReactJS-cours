@@ -1,15 +1,20 @@
 import React, {useState, useContext} from "react";
 import css from './NewTaskForm.module.css';
 import Firebase from "../../context/Firebase";
+import User from "../../context/User";
 
 
 const NewTaskForm = ({add}) => {
+  // Create user input
+const user = useContext(User);
+  //context firebase
   const firebase = useContext(Firebase);
   //on initialise une structure pour le formulaire
   const initialForm = {
     title : "",
     priority: "Moyenne",
     completed : false,
+    userId : {user},
   };
 
   // on crée la fonction pour pouvoir modifier le form
@@ -75,9 +80,12 @@ const NewTaskForm = ({add}) => {
           </select>
         </div>
         <div>
+          <input type="text" name="userId" value={form.userId} placeholder={form.userId} onChange={handleChange}/>
+        </div>
+        <div> 
           {/** crée une checkbox pour ajouter des tach deja terminé ou non*/}
           <input type="checkbox" name="completed" checked={form.completed} onChange={handleChange} />
-
+         
           { //Ajoute un text en fonction de la checkbox => checked ou non
           form.completed ? "Terminée" : "En cours"
           }

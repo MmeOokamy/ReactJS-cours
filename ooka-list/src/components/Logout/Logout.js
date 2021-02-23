@@ -5,12 +5,22 @@ import Firebase from "../../context/Firebase";
 const Logout = () => {
 
   const firebase = useContext(Firebase);
-  const {setUser} = useContext(User);
+  const { user, setUser } = useContext(User);
 
-  return <>
-  <button onClick={() => firebase.logout(setUser(null) + localStorage.removeItem("user"))} >Logout</button>
-  <p>{JSON.parse(localStorage.getItem("user"))}</p>
-  </>;
+  return( 
+  <>
+    <button
+      onClick={() => {
+        firebase.logout();
+        setUser(null);
+      }} 
+    >
+    Logout
+    </button>
+  
+  <h2>Bonjour {user.email}{""}</h2>
+  </>
+  );
 };
 
 export default Logout;

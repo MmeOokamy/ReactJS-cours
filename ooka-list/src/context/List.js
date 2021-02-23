@@ -36,7 +36,7 @@ useEffect(() => {
 
 
   //mon contexte me renvoi un objet avec un list et un setList
-  return <List.Provider value={{ list, setList }}>{children}</List.Provider>;
+  return <List.Provider value={{ list, setList, user }}>{children}</List.Provider>;
 };
 
 export default List;
