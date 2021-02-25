@@ -23,8 +23,7 @@ const user = useContext(User);
   // ma value => si je suis sur une checkbox c'est target.checked sinon c'est la valeur initialisé dans initialForm
   //mon name correspont au name des attributs (name ="" value ="")
   const handleChange = (e) => {
-    const value =
-      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
       const name = e.target.name;
       //setForm sert alors a modifier le formulaire
       setForm({...form, [name] : value });
